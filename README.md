@@ -9,3 +9,8 @@
 - Неверный адрес  
 
 ![image](https://user-images.githubusercontent.com/125456822/221467750-c7fe8825-212a-45b5-b066-9d3d8e0d6d14.png)
+
+
+- Задержки при 10K RPS
+
+![image](https://user-images.githubusercontent.com/125456822/221472414-25d4ec9d-12cc-46c8-942b-73c459e82804.png)
