@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.serykhd.common.net.address.org.apache.commons.validator.routines.InetAddressValidator;
 import ru.serykhd.geoip.GeoIPService;
 import ru.serykhd.geoip.ipfire.IPFireGeoIP;
+import ru.serykhd.geoipdemospring.exception.EmptyLookupException;
+import ru.serykhd.geoipdemospring.exception.InvalidAddressException;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -24,9 +26,9 @@ public class GeoIPServerController {
     }
 
     @RequestMapping(path = "/iso")
-    public ResponseEntity<String> iso(@RequestParam("address") String address) throws UnknownHostException {
+    public String iso(@RequestParam("address") String address) throws UnknownHostException {
         if (!InetAddressValidator.getInstance().isValidInet4Address(address)) {
-            return ResponseEntity.badRequest().body("Invalid address");
+            throw new InvalidAddressException(address);
         }
 
         InetAddress inetAddress = Inet4Address.getByName(address);
@@ -34,9 +36,9 @@ public class GeoIPServerController {
         Optional<String> countryResponse = geoIPService.getCountryResponse(inetAddress);
 
         if (countryResponse.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            throw new EmptyLookupException();
         }
 
-        return ResponseEntity.ok(countryResponse.get());
+        return countryResponse.get();
     }
 }
