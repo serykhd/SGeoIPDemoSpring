@@ -1,10 +1,9 @@
-package ru.serykhd.geoipdemospring;
+package ru.serykhd.geoipdemospring.boot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "ru.serykhd.geoipdemospring")
 public class GeoIPServerApplication {
 
     public static void main(String[] args) {
